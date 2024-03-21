@@ -5,7 +5,7 @@
         <title>Acceso a la aplicación</title>
     </head>
     <body>
-        <h1 th:inline="text">Hola <span th:remove="tag" sec:authentication="name">thymeleaf</span>!!</h1>
+        <h1 th:inline="text">Hola usuario<span th:remove="tag" sec:authentication="name">thymeleaf</span>!!</h1>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Cerrar sesión" />
         </form>

@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -17,9 +19,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests(authorizeRequests ->
+            .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
+                     // El antmatchers va dntro del requestMatchers
                     .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/user").hasRole("USER")
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        //.requestMatchers(antMatcher("/h2-console/**")).permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(formLogin ->
@@ -34,12 +40,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-            .username("user")
-            .password("password")
-            .roles("USER")
-            .build();
-        return new InMemoryUserDetailsManager(user);
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
+
 }
