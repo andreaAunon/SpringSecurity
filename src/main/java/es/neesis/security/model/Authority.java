@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 public class Authority {
-    @ManyToOne
     private User user;
     private String authority;
 }

@@ -12,7 +12,6 @@ public class User {
     @Id
     private String username;
     private String password;
-    @JoinTable(name = "user_authorities")
     @OneToMany
     private Set<Authority> authorities;
 }

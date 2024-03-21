@@ -1,7 +1,6 @@
 package es.neesis.security.dto;
 
 import es.neesis.security.model.User;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
